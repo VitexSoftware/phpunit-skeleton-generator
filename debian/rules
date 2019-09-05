@@ -1,0 +1,20 @@
+#!/usr/bin/make -f
+
+export DH_VERBOSE = 1
+
+%:
+	dh $@
+
+override_dh_clean:
+	composer update
+	rm -f phpunit-skeleton-generator.phar
+	dh_clean
+
+override_dh_prepare:
+	curl -sS https://getcomposer.org/installer | php -- --version=$(COMPOSER_VERSION)
+	dch --check-dirname-regex '.*' -v $(COMPOSER_VERSION) 'new release'
+	dh_prepare
+
+override_dh_install:
+	dh_install
+	mv debian/phpunit-skeleton-generator/usr/bin/phpunit-skeleton-generator.phar debian/phpunit-skeleton-generator/usr/bin/phpunit-skeleton-generator
