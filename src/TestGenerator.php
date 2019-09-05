@@ -311,7 +311,7 @@ class TestGenerator extends AbstractGenerator
         );
 
         if ($this->outClassName['namespace'] != '') {
-            $namespace = "\nnamespace " .
+            $namespace = "\nnamespace Test\\" .
                 $this->outClassName['namespace'] . ";\n";
         } else {
             $namespace = '';
