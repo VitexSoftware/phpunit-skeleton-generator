@@ -11,8 +11,7 @@ override_dh_clean:
 	dh_clean
 
 override_dh_prepare:
-	curl -sS https://getcomposer.org/installer | php -- --version=$(COMPOSER_VERSION)
-	dch --check-dirname-regex '.*' -v $(COMPOSER_VERSION) 'new release'
+	php -d phar.readonly=off `which phar-composer` build 
 	dh_prepare
 
 override_dh_install:
