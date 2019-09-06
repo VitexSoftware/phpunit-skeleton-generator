@@ -20,14 +20,14 @@
         "issues": "https://github.com/VitexSoftware/phpunit-skeleton-generator/issues"
     },
     "require": {
-        "php": ">=7.1",
+        "php": ">=7",
         "phpunit/php-text-template": "*",
         "sebastian/version": "*",
         "symfony/console": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "*",
-        "mikey179/vfsStream": "*"
+        "mikey179/vfsstream": "*"
     },
     "autoload": {
         "classmap": [

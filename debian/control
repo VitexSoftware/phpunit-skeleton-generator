@@ -1,4 +1,4 @@
-Source: phpunit-skeleton-generator
+Source: phpunit-skelgen
 Build-Depends: debhelper (>= 7.0.50~),php-cli
 Standards-Version: 3.8.4
 Maintainer: Vítězslav Dvořák <info@vitexsoftware.cz>

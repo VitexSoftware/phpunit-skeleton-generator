@@ -6,10 +6,11 @@ composer.phar
 composer.lock
 vendor
 /nbproject/private/
-/debian/phpunit-skeleton-generator/
+/debian/phpunit-skelgen/
 /debian/.debhelper/
 /debian/debhelper-build-stamp
-/debian/phpunit-skeleton-generator.debhelper.log
-/debian/phpunit-skeleton-generator.substvars
+/debian/phpunit-skelgen.debhelper.log
+/debian/phpunit-skelgen.substvars
 /debian/files
+/phpunit-skelgen.phar
 /phpunit-skeleton-generator.phar

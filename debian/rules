@@ -16,4 +16,4 @@ override_dh_prepare:
 
 override_dh_install:
 	dh_install
-	mv debian/phpunit-skeleton-generator/usr/bin/phpunit-skeleton-generator.phar debian/phpunit-skeleton-generator/usr/bin/phpunit-skelgen
+	mv debian/phpunit-skelgen/usr/bin/phpunit-skeleton-generator.phar debian/phpunit-skelgen/usr/bin/phpunit-skelgen
