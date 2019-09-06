@@ -1,4 +1,4 @@
-**This project has been abandoned and is no longer maintained.**
+![php-skelgen](https://raw.githubusercontent.com/VitexSoftware/phpunit-skeleton-generator/master/phpunit-skelgen.png)
 
 # PHPUnit Skeleton Generator
 
@@ -6,18 +6,27 @@
 
 ## Installation
 
-### PHP Archive (PHAR)
+### Debian Package
 
-The easiest way to obtain phpunit-skelgen is to download a [PHP Archive (PHAR)](http://php.net/phar) that has all required dependencies of phpunit-skelgen bundled in a single file:
+Add the new Repo:
 
-    wget https://phar.phpunit.de/phpunit-skelgen.phar
-    chmod +x phpunit-skelgen.phar
-    mv phpunit-skelgen.phar /usr/local/bin/phpunit-skelgen
+```
+echo "deb http://repo.vitexsoftware.cz $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/vitexsoftware.list
+sudo wget -O /etc/apt/trusted.gpg.d/vitexsoftware.gpg http://repo.vitexsoftware.cz/keyring.gpg
+```
 
-You can also immediately use the PHAR after you have downloaded it, of course:
+or the Old Repo ( Deprecated )
 
-    wget https://phar.phpunit.de/phpunit-skelgen.phar
-    php phpunit-skelgen.phar
+```
+wget -O - http://v.s.cz/info@vitexsoftware.cz.gpg.key|sudo apt-key add -
+echo deb http://v.s.cz/ stable main > /etc/apt/sources.list.d/ease.list
+```
+refresh cache and install package:
+
+```
+apt update
+apt install phpunit-skelgen
+```
 
 ### Composer
 
@@ -25,13 +34,13 @@ Simply add a dependency on `phpunit/phpunit-skeleton-generator` to your project'
 
     {
         "require-dev": {
-            "phpunit/phpunit-skeleton-generator": "*"
+            "vitexsoftware/phpunit-skeleton-generator": "*"
         }
     }
 
 For a system-wide installation via Composer, you can run:
 
-    composer global require "phpunit/phpunit-skeleton-generator=*"
+    composer global require "vitexsoftware/phpunit-skeleton-generator=*"
 
 Make sure you have `~/.composer/vendor/bin/` in your path.
 
