@@ -7,7 +7,7 @@ Priority: optional
 Section: php
 Homepage: https://github.com/VitexSoftware/phpunit-skeleton-generator
 
-Package: phpunit-skeleton-generator
+Package: phpunit-skelgen
 Depends: php-cli
 Architecture: all
 Section: php
