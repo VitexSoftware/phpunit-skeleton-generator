@@ -1,4 +1,5 @@
 <?php
+
 /**
  * phpunit-skeleton-generator
  *
@@ -56,18 +57,17 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @link      http://github.com/sebastianbergmann/phpunit-skeleton-generator/tree
  * @since     Class available since Release 2.0.0
  */
-abstract class BaseCommand extends Command
-{
+abstract class BaseCommand extends Command {
+
     /**
      * Configures the current command.
      */
-    protected function configure()
-    {
+    protected function configure() {
         $this->addOption(
-            'bootstrap',
-            null,
-            InputOption::VALUE_REQUIRED,
-            'A "bootstrap" PHP file that is run at startup'
+                'bootstrap',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'A "bootstrap" PHP file that is run at startup'
         );
     }
 
@@ -79,22 +79,22 @@ abstract class BaseCommand extends Command
      *
      * @return null|integer null or 0 if everything went fine, or an error code
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
-    {
+    protected function execute(InputInterface $input, OutputInterface $output) {
         if ($input->getOption('bootstrap') && file_exists($input->getOption('bootstrap'))) {
             include $input->getOption('bootstrap');
         }
 
         $generator = $this->getGenerator($input);
-        $generator->write();
+        $written = $generator->write();
 
         $output->writeln(
-            sprintf(
-                'Wrote skeleton for "%s" to "%s".',
-                $generator->getOutClassName(),
-                $generator->getOutSourceFile()
-            )
+                sprintf(
+                        'Wrote skeleton for "%s" to "%s".',
+                        $generator->getOutClassName(),
+                        $generator->getOutSourceFile()
+                )
         );
+        return $written > 0 ? 0 : 1;
     }
 
     /**

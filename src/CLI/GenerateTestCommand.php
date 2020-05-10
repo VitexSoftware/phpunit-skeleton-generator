@@ -1,4 +1,5 @@
 <?php
+
 /**
  * phpunit-skeleton-generator
  *
@@ -57,35 +58,34 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @link      http://github.com/sebastianbergmann/phpunit-skeleton-generator/tree
  * @since     Class available since Release 2.0.0
  */
-class GenerateTestCommand extends BaseCommand
-{
+class GenerateTestCommand extends BaseCommand {
+
     /**
      * Configures the current command.
      */
-    protected function configure()
-    {
+    protected function configure() {
         $this->setName('generate-test')
-             ->setDescription('Generate a test class based on a class')
-             ->addArgument(
-                 'class',
-                 InputArgument::REQUIRED,
-                 'The name of the class to generate a test class for'
-             )
-             ->addArgument(
-                 'class-source',
-                 InputArgument::OPTIONAL,
-                 'The source file that declared the class to generate a test class for'
-             )
-             ->addArgument(
-                 'test-class',
-                 InputArgument::OPTIONAL,
-                 'The name of the test class that is to be generated'
-             )
-             ->addArgument(
-                 'test-source',
-                 InputArgument::OPTIONAL,
-                 'The file to which the generated test code is to be written'
-             );
+                ->setDescription('Generate a test class based on a class')
+                ->addArgument(
+                        'class',
+                        InputArgument::REQUIRED,
+                        'The name of the class to generate a test class for'
+                )
+                ->addArgument(
+                        'class-source',
+                        InputArgument::OPTIONAL,
+                        'The source file that declared the class to generate a test class for'
+                )
+                ->addArgument(
+                        'test-class',
+                        InputArgument::OPTIONAL,
+                        'The name of the test class that is to be generated'
+                )
+                ->addArgument(
+                        'test-source',
+                        InputArgument::OPTIONAL,
+                        'The file to which the generated test code is to be written'
+        );
 
         parent::configure();
     }
@@ -94,13 +94,13 @@ class GenerateTestCommand extends BaseCommand
      * @param InputInterface  $input  An InputInterface instance
      * @return AbstractGenerator
      */
-    protected function getGenerator(InputInterface $input)
-    {
+    protected function getGenerator(InputInterface $input) {
         return new TestGenerator(
-            (string)$input->getArgument('class'),
-            (string)$input->getArgument('class-source'),
-            (string)$input->getArgument('test-class'),
-            (string)$input->getArgument('test-source')
+                (string) $input->getArgument('class'),
+                (string) $input->getArgument('class-source'),
+                (string) $input->getArgument('test-class'),
+                (string) $input->getArgument('test-source')
         );
     }
+
 }

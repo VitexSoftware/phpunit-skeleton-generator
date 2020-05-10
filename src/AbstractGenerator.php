@@ -125,6 +125,8 @@ abstract class AbstractGenerator
      * Generates the code and writes it to a source file.
      *
      * @param string $file
+     * 
+     * @return int bytes wrote
      */
     public function write($file = '')
     {
@@ -132,7 +134,7 @@ abstract class AbstractGenerator
             $file = $this->outSourceFile;
         }
 
-        file_put_contents($file, $this->generate());
+        return file_put_contents($file, $this->generate());
     }
 
     /**
@@ -150,7 +152,7 @@ abstract class AbstractGenerator
         if (strpos($className, '\\') !== false) {
             $tmp                 = explode('\\', $className);
             $result['className'] = $tmp[count($tmp)-1];
-            $result['namespace'] = $this->arrayToName($tmp);
+            $result['origNamespace']  = $result['namespace'] = $this->arrayToName($tmp);
         }
 
         return $result;
