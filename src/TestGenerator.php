@@ -290,7 +290,7 @@ class TestGenerator extends AbstractGenerator {
                     $methodTemplate->setVar(
                             array(
                                 'className' => $this->inClassName['fullyQualifiedClassName'],
-                                'methodName' => ucfirst($method->getName()),
+                                'methodName' => lcfirst(ucwords($method->getName())),
                                 'origMethodName' => $method->getName()
                             )
                     );
