@@ -1,8 +1,8 @@
-phpunit-skelgen (2.1.0) UNRELEASED; urgency=medium
+phpunit-skelgen (2.1.1) UNRELEASED; urgency=medium
 
   * Generate tests with use of class in original namespace
 
- -- CyberVitexus <vitex@exiv.jinonice.czf>  Sun, 10 May 2020 14:59:14 +0200
+ -- CyberVitexus <vitex@exiv.jinonice.czf>  Mon, 07 Sep 2020 21:20:31 +0200
 
 phpunit-skelgen (2.0.2) experimental; urgency=medium
 
