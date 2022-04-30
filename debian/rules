@@ -10,9 +10,9 @@ override_dh_clean:
 	rm -f phpunit-skeleton-generator.phar
 	dh_clean
 
-override_dh_prepare:
+override_dh_prep:
 	php -d phar.readonly=off /usr/bin/phar-composer -n build --ansi phpunit-skelgen
-	dh_prepare
+	dh_prep
 
 override_dh_install:
 	dh_install
