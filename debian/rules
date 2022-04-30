@@ -11,7 +11,7 @@ override_dh_clean:
 	dh_clean
 
 override_dh_prep:
-	php -d phar.readonly=off /usr/bin/phar-composer -n build --ansi phpunit-skelgen
+	php -d phar.readonly=off /usr/bin/phar-composer -n build --ansi .
 	dh_prep
 
 override_dh_install:
