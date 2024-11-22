@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * phpunit-skeleton-generator
  *
@@ -10,17 +12,17 @@
  * modification, are permitted provided that the following conditions
  * are met:
  *
- *   * Redistributions of source code must retain the above copyright
- *     notice, this list of conditions and the following disclaimer.
+ *  Redistributions of source code must retain the above copyright
+ *  notice, this list of conditions and the following disclaimer.
  *
- *   * Redistributions in binary form must reproduce the above copyright
- *     notice, this list of conditions and the following disclaimer in
- *     the documentation and/or other materials provided with the
- *     distribution.
+ *  Redistributions in binary form must reproduce the above copyright
+ *  notice, this list of conditions and the following disclaimer in
+ *  the documentation and/or other materials provided with the
+ *  distribution.
  *
- *   * Neither the name of Sebastian Bergmann nor the names of his
- *     contributors may be used to endorse or promote products derived
- *     from this software without specific prior written permission.
+ *  Neither the name of Sebastian Bergmann nor the names of his
+ *  contributors may be used to endorse or promote products derived
+ *  from this software without specific prior written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -34,12 +36,11 @@
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- *
- * @author     Sebastian Bergmann <sebastian@phpunit.de>
- * @copyright  2012-2014 Sebastian Bergmann <sebastian@phpunit.de>
- * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @link       http://www.phpunit.de/
- * @since      File available since Release 1.0.0
+ *  *
+ * @author    Sebastian Bergmann <sebastian@phpunit.de>
+ * @copyright 2012-2014 Sebastian Bergmann <sebastian@phpunit.de>
+ * @license   http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
+ * @since     File available since Release 2.0.0
  */
 
 namespace SebastianBergmann\PHPUnit\SkeletonGenerator;
@@ -50,15 +51,13 @@ namespace SebastianBergmann\PHPUnit\SkeletonGenerator;
  * @author     Sebastian Bergmann <sebastian@phpunit.de>
  * @copyright  2012-2014 Sebastian Bergmann <sebastian@phpunit.de>
  * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @link       http://www.phpunit.de/
+ *
+ * @see       http://www.phpunit.de/
  * @since      Class available since Release 1.0.0
  */
-class TestGenerator extends AbstractGenerator {
-
-    /**
-     * @var array
-     */
-    protected $methodNameCounter = array();
+class TestGenerator extends AbstractGenerator
+{
+    protected array $methodNameCounter = [];
 
     /**
      * Constructor.
@@ -67,9 +66,11 @@ class TestGenerator extends AbstractGenerator {
      * @param string $inSourceFile
      * @param string $outClassName
      * @param string $outSourceFile
+     *
      * @throws \RuntimeException
      */
-    public function __construct($inClassName, $inSourceFile = '', $outClassName = '', $outSourceFile = '') {
+    public function __construct($inClassName, $inSourceFile = '', $outClassName = '', $outSourceFile = '')
+    {
         if (class_exists($inClassName)) {
             $reflector = new \ReflectionClass($inClassName);
             $inSourceFile = $reflector->getFileName();
@@ -81,14 +82,14 @@ class TestGenerator extends AbstractGenerator {
             unset($reflector);
         } else {
             if (empty($inSourceFile)) {
-                $possibleFilenames = array(
-                    $inClassName . '.php',
+                $possibleFilenames = [
+                    $inClassName.'.php',
                     str_replace(
-                            array('_', '\\'),
-                            DIRECTORY_SEPARATOR,
-                            $inClassName
-                    ) . '.php'
-                );
+                        ['_', '\\'],
+                        \DIRECTORY_SEPARATOR,
+                        $inClassName,
+                    ).'.php',
+                ];
 
                 foreach ($possibleFilenames as $possibleFilename) {
                     if (is_file($possibleFilename)) {
@@ -99,69 +100,71 @@ class TestGenerator extends AbstractGenerator {
 
             if (empty($inSourceFile)) {
                 throw new \RuntimeException(
-                        sprintf(
-                                'Neither "%s" nor "%s" could be opened.',
-                                $possibleFilenames[0],
-                                $possibleFilenames[1]
-                        )
+                    sprintf(
+                        'Neither "%s" nor "%s" could be opened.',
+                        $possibleFilenames[0],
+                        $possibleFilenames[1],
+                    ),
                 );
             }
 
             if (!is_file($inSourceFile)) {
                 throw new \RuntimeException(
-                        sprintf(
-                                '"%s" could not be opened.',
-                                $inSourceFile
-                        )
+                    sprintf(
+                        '"%s" could not be opened.',
+                        $inSourceFile,
+                    ),
                 );
             }
 
             $inSourceFile = realpath($inSourceFile);
+
             include_once $inSourceFile;
 
             if (!class_exists($inClassName)) {
                 throw new \RuntimeException(
-                        sprintf(
-                                'Could not find class "%s" in "%s".',
-                                $inClassName,
-                                $inSourceFile
-                        )
+                    sprintf(
+                        'Could not find class "%s" in "%s".',
+                        $inClassName,
+                        $inSourceFile,
+                    ),
                 );
             }
         }
 
         if (empty($outClassName)) {
-            $outClassName = $inClassName . 'Test';
+            $outClassName = $inClassName.'Test';
         }
 
         if (empty($outSourceFile)) {
-            $outSourceFile = dirname($inSourceFile) . DIRECTORY_SEPARATOR . $outClassName . '.php';
+            $outSourceFile = \dirname($inSourceFile).\DIRECTORY_SEPARATOR.$outClassName.'.php';
         }
 
         parent::__construct(
-                $inClassName,
-                $inSourceFile,
-                $outClassName,
-                $outSourceFile
+            $inClassName,
+            $inSourceFile,
+            $outClassName,
+            $outSourceFile,
         );
     }
 
     /**
      * @return string
      */
-    public function generate() {
+    public function generate()
+    {
         $class = new \ReflectionClass(
-                $this->inClassName['fullyQualifiedClassName']
+            $this->inClassName['fullyQualifiedClassName'],
         );
 
         $methods = '';
         $incompleteMethods = '';
 
         foreach ($class->getMethods() as $method) {
-            if (!$method->isConstructor() &&
-                    !$method->isAbstract() &&
-                    $method->isPublic() &&
-                    $method->getDeclaringClass()->getName() == $this->inClassName['fullyQualifiedClassName']) {
+            if (!$method->isConstructor()
+                    && !$method->isAbstract()
+                    && $method->isPublic()
+                    && $method->getDeclaringClass()->getName() === $this->inClassName['fullyQualifiedClassName']) {
                 $assertAnnotationFound = false;
 
                 if (preg_match_all('/@assert(.*)$/Um', $method->getDocComment(), $annotations)) {
@@ -170,61 +173,62 @@ class TestGenerator extends AbstractGenerator {
                             switch ($matches[2]) {
                                 case '==':
                                     $assertion = 'Equals';
-                                    break;
 
+                                    break;
                                 case '!=':
                                     $assertion = 'NotEquals';
-                                    break;
 
+                                    break;
                                 case '===':
                                     $assertion = 'Same';
-                                    break;
 
+                                    break;
                                 case '!==':
                                     $assertion = 'NotSame';
-                                    break;
 
+                                    break;
                                 case '>':
                                     $assertion = 'GreaterThan';
-                                    break;
 
+                                    break;
                                 case '>=':
                                     $assertion = 'GreaterThanOrEqual';
-                                    break;
 
+                                    break;
                                 case '<':
                                     $assertion = 'LessThan';
-                                    break;
 
+                                    break;
                                 case '<=':
                                     $assertion = 'LessThanOrEqual';
-                                    break;
 
+                                    break;
                                 case 'throws':
                                     $assertion = 'exception';
+
                                     break;
 
                                 default:
                                     throw new \RuntimeException(
-                                            sprintf(
-                                                    'Token "%s" could not be parsed in @assert annotation.',
-                                                    $matches[2]
-                                            )
+                                        sprintf(
+                                            'Token "%s" could not be parsed in @assert annotation.',
+                                            $matches[2],
+                                        ),
                                     );
                             }
 
-                            if ($assertion == 'exception') {
+                            if ($assertion === 'exception') {
                                 $template = 'TestMethodException';
-                            } elseif ($assertion == 'Equals' && strtolower($matches[3]) == 'true') {
+                            } elseif ($assertion === 'Equals' && strtolower($matches[3]) === 'true') {
                                 $assertion = 'True';
                                 $template = 'TestMethodBool';
-                            } elseif ($assertion == 'NotEquals' && strtolower($matches[3]) == 'true') {
+                            } elseif ($assertion === 'NotEquals' && strtolower($matches[3]) === 'true') {
                                 $assertion = 'False';
                                 $template = 'TestMethodBool';
-                            } elseif ($assertion == 'Equals' && strtolower($matches[3]) == 'false') {
+                            } elseif ($assertion === 'Equals' && strtolower($matches[3]) === 'false') {
                                 $assertion = 'False';
                                 $template = 'TestMethodBool';
-                            } elseif ($assertion == 'NotEquals' && strtolower($matches[3]) == 'false') {
+                            } elseif ($assertion === 'NotEquals' && strtolower($matches[3]) === 'false') {
                                 $assertion = 'True';
                                 $template = 'TestMethodBool';
                             } else {
@@ -236,20 +240,20 @@ class TestGenerator extends AbstractGenerator {
                             }
 
                             $methodTemplate = new \Text_Template(
-                                    sprintf(
-                                            '%s%stemplate%s%s.tpl',
-                                            __DIR__,
-                                            DIRECTORY_SEPARATOR,
-                                            DIRECTORY_SEPARATOR,
-                                            $template
-                                    )
+                                sprintf(
+                                    '%s%stemplate%s%s.tpl',
+                                    __DIR__,
+                                    \DIRECTORY_SEPARATOR,
+                                    \DIRECTORY_SEPARATOR,
+                                    $template,
+                                ),
                             );
 
                             $origMethodName = $method->getName();
                             $methodName = ucfirst($origMethodName);
 
                             if (isset($this->methodNameCounter[$methodName])) {
-                                $this->methodNameCounter[$methodName]++;
+                                ++$this->methodNameCounter[$methodName];
                             } else {
                                 $this->methodNameCounter[$methodName] = 1;
                             }
@@ -259,15 +263,15 @@ class TestGenerator extends AbstractGenerator {
                             }
 
                             $methodTemplate->setVar(
-                                    array(
-                                        'annotation' => trim($annotation),
-                                        'arguments' => $matches[1],
-                                        'assertion' => isset($assertion) ? $assertion : '',
-                                        'expected' => $matches[3],
-                                        'origMethodName' => $origMethodName,
-                                        'className' => $this->inClassName['fullyQualifiedClassName'],
-                                        'methodName' => $methodName
-                                    )
+                                [
+                                    'annotation' => trim($annotation),
+                                    'arguments' => $matches[1],
+                                    'assertion' => $assertion ?? '',
+                                    'expected' => $matches[3],
+                                    'origMethodName' => $origMethodName,
+                                    'className' => $this->inClassName['fullyQualifiedClassName'],
+                                    'methodName' => $methodName,
+                                ],
                             );
 
                             $methods .= $methodTemplate->render();
@@ -279,20 +283,20 @@ class TestGenerator extends AbstractGenerator {
 
                 if (!$assertAnnotationFound) {
                     $methodTemplate = new \SebastianBergmann\Template\Template(
-                            sprintf(
-                                    '%s%stemplate%sIncompleteTestMethod.tpl',
-                                    __DIR__,
-                                    DIRECTORY_SEPARATOR,
-                                    DIRECTORY_SEPARATOR
-                            )
+                        sprintf(
+                            '%s%stemplate%sIncompleteTestMethod.tpl',
+                            __DIR__,
+                            \DIRECTORY_SEPARATOR,
+                            \DIRECTORY_SEPARATOR,
+                        ),
                     );
 
                     $methodTemplate->setVar(
-                            array(
-                                'className' => $this->inClassName['fullyQualifiedClassName'],
-                                'methodName' => lcfirst(ucwords($method->getName())),
-                                'origMethodName' => $method->getName()
-                            )
+                        [
+                            'className' => $this->inClassName['fullyQualifiedClassName'],
+                            'methodName' => lcfirst(ucwords($method->getName())),
+                            'origMethodName' => $method->getName(),
+                        ],
                     );
 
                     $incompleteMethods .= $methodTemplate->render();
@@ -301,36 +305,33 @@ class TestGenerator extends AbstractGenerator {
         }
 
         $classTemplate = new \SebastianBergmann\Template\Template(
-                sprintf(
-                        '%s%stemplate%sTestClass.tpl',
-                        __DIR__,
-                        DIRECTORY_SEPARATOR,
-                        DIRECTORY_SEPARATOR
-                )
+            sprintf(
+                '%s%stemplate%sTestClass.tpl',
+                __DIR__,
+                \DIRECTORY_SEPARATOR,
+                \DIRECTORY_SEPARATOR,
+            ),
         );
 
-
-
-        if ($this->outClassName['namespace'] != '') {
-            $namespace = "\nnamespace Test\\" . $this->outClassName['namespace'] . ";\n";
+        if ($this->outClassName['namespace'] !== '') {
+            $namespace = "\nnamespace Test\\".$this->outClassName['namespace'].";\n";
         } else {
             $namespace = '';
         }
 
         $classTemplate->setVar(
-                array(
-                    'namespace' => $namespace,
-                    'namespaceSeparator' => !empty($namespace) ? '\\' : '',
-                    'origNamespace' => $this->inClassName['origNamespace'],
-                    'className' => $this->inClassName['className'],
-                    'testClassName' => $this->outClassName['className'],
-                    'methods' => $methods . $incompleteMethods,
-                    'date' => date('Y-m-d'),
-                    'time' => date('H:i:s')
-                )
+            [
+                'namespace' => $namespace,
+                'namespaceSeparator' => !empty($namespace) ? '\\' : '',
+                'origNamespace' => $this->inClassName['origNamespace'],
+                'className' => $this->inClassName['className'],
+                'testClassName' => $this->outClassName['className'],
+                'methods' => $methods.$incompleteMethods,
+                'date' => date('Y-m-d'),
+                'time' => date('H:i:s'),
+            ],
         );
 
         return $classTemplate->render();
     }
-
 }

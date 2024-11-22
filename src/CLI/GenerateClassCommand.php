@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * phpunit-skeleton-generator
  *
@@ -9,17 +12,17 @@
  * modification, are permitted provided that the following conditions
  * are met:
  *
- *   * Redistributions of source code must retain the above copyright
- *     notice, this list of conditions and the following disclaimer.
+ *  Redistributions of source code must retain the above copyright
+ *  notice, this list of conditions and the following disclaimer.
  *
- *   * Redistributions in binary form must reproduce the above copyright
- *     notice, this list of conditions and the following disclaimer in
- *     the documentation and/or other materials provided with the
- *     distribution.
+ *  Redistributions in binary form must reproduce the above copyright
+ *  notice, this list of conditions and the following disclaimer in
+ *  the documentation and/or other materials provided with the
+ *  distribution.
  *
- *   * Neither the name of Sebastian Bergmann nor the names of his
- *     contributors may be used to endorse or promote products derived
- *     from this software without specific prior written permission.
+ *  Neither the name of Sebastian Bergmann nor the names of his
+ *  contributors may be used to endorse or promote products derived
+ *  from this software without specific prior written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -33,7 +36,7 @@
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- *
+ *  *
  * @author    Sebastian Bergmann <sebastian@phpunit.de>
  * @copyright 2012-2014 Sebastian Bergmann <sebastian@phpunit.de>
  * @license   http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
@@ -47,14 +50,13 @@ use SebastianBergmann\PHPUnit\SkeletonGenerator\ClassGenerator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @author    Sebastian Bergmann <sebastian@phpunit.de>
  * @copyright 2012-2014 Sebastian Bergmann <sebastian@phpunit.de>
  * @license   http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @link      http://github.com/sebastianbergmann/phpunit-skeleton-generator/tree
+ *
+ * @see      http://github.com/sebastianbergmann/phpunit-skeleton-generator/tree
  * @since     Class available since Release 2.0.0
  */
 class GenerateClassCommand extends BaseCommand
@@ -62,45 +64,46 @@ class GenerateClassCommand extends BaseCommand
     /**
      * Configures the current command.
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('generate-class')
-             ->setDescription('Generate a class based on a test class')
-             ->addArgument(
-                 'test-class',
-                 InputArgument::REQUIRED,
-                 'The name of the test class that is to be used as a template'
-             )
-             ->addArgument(
-                 'test-source',
-                 InputArgument::OPTIONAL,
-                 'The source file that contains the test class'
-             )
-             ->addArgument(
-                 'class',
-                 InputArgument::OPTIONAL,
-                 'The name of the class to be generated'
-             )
-             ->addArgument(
-                 'class-source',
-                 InputArgument::OPTIONAL,
-                 'The file to which the generated code is to be written'
-             );
+            ->setDescription('Generate a class based on a test class')
+            ->addArgument(
+                'test-class',
+                InputArgument::REQUIRED,
+                'The name of the test class that is to be used as a template',
+            )
+            ->addArgument(
+                'test-source',
+                InputArgument::OPTIONAL,
+                'The source file that contains the test class',
+            )
+            ->addArgument(
+                'class',
+                InputArgument::OPTIONAL,
+                'The name of the class to be generated',
+            )
+            ->addArgument(
+                'class-source',
+                InputArgument::OPTIONAL,
+                'The file to which the generated code is to be written',
+            );
 
         parent::configure();
     }
 
     /**
-     * @param InputInterface  $input  An InputInterface instance
+     * @param InputInterface $input An InputInterface instance
+     *
      * @return AbstractGenerator
      */
     protected function getGenerator(InputInterface $input)
     {
         return new ClassGenerator(
-            (string)$input->getArgument('test-class'),
-            (string)$input->getArgument('test-source'),
-            (string)$input->getArgument('class'),
-            (string)$input->getArgument('class-source')
+            (string) $input->getArgument('test-class'),
+            (string) $input->getArgument('test-source'),
+            (string) $input->getArgument('class'),
+            (string) $input->getArgument('class-source'),
         );
     }
 }
