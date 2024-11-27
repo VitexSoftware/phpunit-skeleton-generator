@@ -64,8 +64,8 @@ class Application extends AbstractApplication
 {
     public function __construct()
     {
-        $version = new Version('2.1.0', \dirname(__DIR__, 2));
-        parent::__construct('phpunit-skelgen', $version->getVersion());
+        $version = new Version('2.1.2', \dirname(__DIR__, 2));
+        parent::__construct('phpunit-skelgen', $version->asString());
 
         $this->add(new GenerateClassCommand());
         $this->add(new GenerateTestCommand());
@@ -76,25 +76,5 @@ class Application extends AbstractApplication
      *
      * @param InputInterface  $input  An Input instance
      * @param OutputInterface $output An Output instance
-     *
-     * @return int 0 if everything went fine, or an error code
      */
-    public function doRun(InputInterface $input, OutputInterface $output)
-    {
-        if (!$input->hasParameterOption('--quiet')) {
-            $output->write(
-                sprintf(
-                    "phpunit-skelgen %s by Sebastian Bergmann.\n\n",
-                    $this->getVersion(),
-                ),
-            );
-        }
-
-        if ($input->hasParameterOption('--version')
-            || $input->hasParameterOption('-V')) {
-            exit;
-        }
-
-        parent::doRun($input, $output);
-    }
 }

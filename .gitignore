@@ -14,3 +14,4 @@ vendor
 /debian/files
 /phpunit-skelgen.phar
 /phpunit-skeleton-generator.phar
+/.build/

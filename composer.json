@@ -20,10 +20,10 @@
         "issues": "https://github.com/VitexSoftware/phpunit-skeleton-generator/issues"
     },
     "require": {
-        "php": ">=7.1",
-        "phpunit/php-text-template": "*",
-        "sebastian/version": "*",
-        "symfony/console": "*"
+        "php": ">=7.4",
+        "phpunit/php-text-template": "^4.0",
+        "sebastian/version": "^5.0",
+        "symfony/console": "^5.0"
     },
     "require-dev": {
         "phpunit/phpunit": "*",

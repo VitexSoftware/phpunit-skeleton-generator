@@ -58,11 +58,8 @@ namespace SebastianBergmann\PHPUnit\SkeletonGenerator;
 abstract class AbstractGenerator
 {
     protected array $inClassName;
-
     protected string $inSourceFile;
-
     protected array $outClassName;
-
     protected string $outSourceFile;
 
     /**
