@@ -1,6 +1,7 @@
 #!/usr/bin/make -f
 
-export DH_VERBOSE = 1
+export DH_VERBOSE=1
+export COMPOSER_NO_DEV=1
 
 %:
 	dh $@
@@ -17,5 +18,3 @@ override_dh_prep:
 override_dh_install:
 	dh_install
 	mv debian/phpunit-skelgen/usr/bin/phpunit-skeleton-generator.phar debian/phpunit-skelgen/usr/bin/phpunit-skelgen
-
-
