@@ -1,8 +1,14 @@
-phpunit-skelgen (2.1.2) UNRELEASED; urgency=medium
+phpunit-skelgen (2.1.3) UNRELEASED; urgency=medium
+
+  * update for php8.4
+
+ -- vitex <info@vitexsoftware.cz>  Tue, 15 Apr 2025 21:43:51 +0200
+
+phpunit-skelgen (2.1.2) experimental; urgency=medium
 
   * simply update
 
- -- vitex <info@vitexsoftware.cz>  Wed, 27 Nov 2024 19:31:42 +0100
+ -- vitex <info@vitexsoftware.cz>  Tue, 15 Apr 2025 21:43:40 +0200
 
 phpunit-skelgen (2.1.1) experimental; urgency=medium
 

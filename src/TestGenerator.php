@@ -167,7 +167,7 @@ class TestGenerator extends AbstractGenerator
                     && $method->getDeclaringClass()->getName() === $this->inClassName['fullyQualifiedClassName']) {
                 $assertAnnotationFound = false;
 
-                if (preg_match_all('/@assert(.*)$/Um', $method->getDocComment(), $annotations)) {
+                if ($method->getDocComment() !== false && preg_match_all('/@assert(.*)$/Um', $method->getDocComment(), $annotations)) {
                     foreach ($annotations[1] as $annotation) {
                         if (preg_match('/\((.*)\)\s+([^\s]*)\s+(.*)/', $annotation, $matches)) {
                             switch ($matches[2]) {
