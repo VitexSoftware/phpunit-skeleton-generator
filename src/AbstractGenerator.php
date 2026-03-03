@@ -143,7 +143,7 @@ abstract class AbstractGenerator
             'fullyQualifiedClassName' => $className,
         ];
 
-        if (strpos($className, '\\') !== false) {
+        if (str_contains($className, '\\')) {
             $tmp = explode('\\', $className);
             $result['className'] = $tmp[\count($tmp) - 1];
             $result['origNamespace'] = $result['namespace'] = $this->arrayToName($tmp);

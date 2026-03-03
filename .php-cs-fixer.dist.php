@@ -45,7 +45,7 @@ declare(strict_types=1);
 
 use Ergebnis\PhpCsFixer\Config\Factory;
 use Ergebnis\PhpCsFixer\Config\Rules;
-use Ergebnis\PhpCsFixer\Config\RuleSet\Php74;
+use Ergebnis\PhpCsFixer\Config\RuleSet\Php81;
 
 $header = <<<'HEADER'
 phpunit-skeleton-generator
@@ -88,7 +88,7 @@ POSSIBILITY OF SUCH DAMAGE.
 @since     File available since Release 2.0.0
 HEADER;
 
-$ruleSet = Php74::create()->withHeader($header)->withRules(Rules::fromArray([
+$ruleSet = Php81::create()->withHeader($header)->withRules(Rules::fromArray([
     'blank_line_before_statement' => [
         'statements' => [
             'break',
