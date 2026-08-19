@@ -1,4 +1,4 @@
-# WARP.md - Working AI Reference for phpunit-skeleton-generator
+# AGENTS.md - Working AI Reference for phpunit-skeleton-generator
 
 ## Project Overview
 **Type**: PHP Project/Debian Package
